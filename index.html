@@ -7,13 +7,26 @@
     <title>Analog Saat</title>
     <style type="text/css">
         body {
+            display: flex;
             background-color: #0c091d;
+        }
+        svg {
+            margin: auto;
         }
         .minute-lines {
             stroke: rgb(169, 114, 255, 0.5);
         }
         .hour-lines {
             stroke: #A972FF;
+        }
+        .second {
+            transform-origin:400px 400px;
+        }
+        .minuteHand {
+            transform-origin:400px 400px;
+        }
+        .hourHand {
+            transform-origin:400px 400px; 
         }
     </style>
 </head>
@@ -23,9 +36,9 @@
         class="minute-lines" 
         cx="400" 
         cy="400" 
-        r="350" 
+        r="365" 
         stroke-width="20" 
-        stroke-dasharray="2,34.63333"
+        stroke-dasharray="2,36.20333"
         fill="none"
         ></circle>
         <circle 
@@ -37,6 +50,23 @@
         stroke-dasharray="8,175.16666"
         fill="none"
         ></circle>
+        <line class="second" x1="400" y1="400" x2="400" y2="50" stroke="red"></line>
+        <line class="minuteHand" x1="400" y1="400" x2="400" y2="150" stroke="#E81C6F" stroke-width="5"></line>
+        <line class="hourHand" x1="400" y1="400" x2="400" y2="250" stroke="#E81C6F" stroke-width="10"></line>
     </svg>
+    <script>
+        function timeFunction() {
+        let now = new Date();
+        
+        let hourHand = document.querySelector(".hourHand")
+        hourHand.style = `transform: rotate(${now.getHours() * 30}deg)`
+        let minuteHand = document.querySelector(".minuteHand")
+        minuteHand.style = `transform: rotate(${now.getMinutes() * 6}deg)`
+        let second = document.querySelector(".second")
+        second.style = `transform: rotate(${now.getSeconds() * 6}deg)`
+        }
+        setInterval(timeFunction, 1000);
+        timeFunction();
+    </script>
 </body>
 </html>
